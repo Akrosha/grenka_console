@@ -4,7 +4,7 @@
 
 import os
 
-# main path needs to navigate (line 10)
+# main path need to navigate (line 10)
 main_path = os.getcwd()
 
 # navigate like for this shit (line 7)
@@ -39,4 +39,11 @@ test_path = os.path.join(main_path, "languages")
 if not os.path.exists(test_path):
     os.mkdir(test_path)
 
-handler_cmd.run_command("test")
+enter = ""
+while True:
+    enter = input("> ")
+    if enter == "exit":
+        break
+    print(handler_cmd.run_command(enter))
+
+print("bye bye")

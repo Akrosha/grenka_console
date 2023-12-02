@@ -1,2 +1,2 @@
-def test(args = []):
-    print("hello world")
+def test(self, args = []):
+    return "hello world"
