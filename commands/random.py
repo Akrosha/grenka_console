@@ -1,6 +1,4 @@
-from functions.randoms import Randoms
 def random(self, args = []):
-    print(self.randoms.getSeed())
     if len(args) == 0:
         return self.randoms.getRandom()
     if (len(args) == 1) and (args[0].isdigit()):
