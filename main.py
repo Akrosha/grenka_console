@@ -8,6 +8,7 @@ import os
 main_path = os.getcwd()
 
 # navigate like for this shit (line 7)
+# validate program for program validator
 test_broken = ["functions", "functions{sep}validator.py"]
 for path in test_broken:
     test_path = os.path.join(main_path, path.format(sep = os.sep))
@@ -15,7 +16,7 @@ for path in test_broken:
         print(f"program is broken: not enough files [{test_path}]")
         exit()
 
-# validate program, code in 10-16 do it too
+# validate program for other files
 from functions.validator import validator
 validator(main_path)
 
