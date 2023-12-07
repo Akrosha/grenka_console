@@ -22,7 +22,7 @@ validator(main_path)
 
 # load and init the command handler
 from functions.handler_cmd import Handler_cmd
-handler_cmd = Handler_cmd()
+handler_cmd = Handler_cmd(main_path)
 
 # init all commands in handler that will find in main_path/commands/
 test_path = os.path.join(main_path, "commands")
