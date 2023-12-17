@@ -17,7 +17,7 @@ class Handler_cmd():
         self.resources = Resources(os.path.join(main_path,
                                  "resources", "resources.sqlite3"))
         self.randoms = Randoms(1) # need for random command
-        self.value = None # need for run_command return
+        self.value = None # need for exec() returns
     def run_command(self, raw):
         raw_list = re.sub("\s*$", "", re.sub("^\s*\S+\s*", "", raw))
         command = re.match("[^\s]*\S+",raw)

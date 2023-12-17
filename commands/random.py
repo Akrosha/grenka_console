@@ -1,4 +1,5 @@
 def random(self, args = []):
+    """get a random number\n\trandom <int:min> <int:max>"""
     if len(args) == 0:
         return self.randoms.getRandom()
     if (len(args) == 1) and (args[0].isdigit()):

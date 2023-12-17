@@ -1,6 +1,7 @@
 from time import time
 
 def bonus(self, args = []):
+    """get a daily bonus\n\tbonus"""
     id = self.id
     bonus = self.database.execute(
         """SELECT bonus FROM players

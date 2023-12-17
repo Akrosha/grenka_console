@@ -1,4 +1,5 @@
 def profile(self, args = []):
+    """show user profile\n\tprofile <str:id>"""
     if len(args) > 0:
         id = args[0]
     else:
