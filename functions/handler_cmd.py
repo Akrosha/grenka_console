@@ -8,7 +8,7 @@ from functions.database import Database, Resources
 
 class Handler_cmd():
     def __init__(self, main_path):
-        self.id = "468719193798213654"
+        self.id = input("insert id: ")
         self.main_path = main_path
         self.command_list = []
         self.database = Database(os.path.join(main_path,
