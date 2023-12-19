@@ -8,6 +8,7 @@ def validator(main_path):
     test_broken = ["functions{sep}handler_cmd.py",
                    "functions{sep}randoms.py",
                    "functions{sep}database.py",
+                   "functions{sep}version_check.py",
                    "resources",
                    "resources{sep}resources.sqlite3"]
     test_enough = ["commands",

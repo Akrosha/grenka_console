@@ -20,6 +20,10 @@ for path in test_broken:
 from functions.validator import validator
 validator(main_path)
 
+# version check
+from functions.version_check import version_check
+version_check(main_path)
+
 # load and init the command handler
 from functions.handler_cmd import Handler_cmd
 handler_cmd = Handler_cmd(main_path)
