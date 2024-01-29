@@ -30,23 +30,18 @@ def register(self, args = []):
         """INSERT INTO
            players (id,
                     name,
-                    money,
                     experience,
                     health,
                     bonus,
                     location)
            VALUES ({id},
                    {name},
-                   {money},
                    {experience},
                    {health},
                    {bonus},
                    {location})""".format(
                        id = self.database.data_type(id),
                        name = self.database.data_type(name),
-                       money = self.database.data_type(
-                           self.randoms.getRandom(
-                               min = 256, max = 1024)),
                        experience = self.database.data_type(0),
                        health = self.database.data_type(20),
                        bonus = self.database.data_type(0),

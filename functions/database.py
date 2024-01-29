@@ -31,7 +31,8 @@ class SQLite3Tool():
             else:
                 result = self.cursor.execute(query).fetchone()
             self.connect.commit()
-        except:
+        except Exception as e:
+            print(e)
             result = None
         return result
 
@@ -40,7 +41,6 @@ class Database(SQLite3Tool):
         self.execute("""CREATE TABLE IF NOT EXISTS players
                         (id TEXT,
                         name TEXT,
-                        money INTEGER,
                         experience INTEGER,
                         health INTEGER,
                         bonus INTEGER,
@@ -55,4 +55,29 @@ class Database(SQLite3Tool):
 
 class Resources(SQLite3Tool):
     def check_exist(self):
-        ...
+        self.execute("""CREATE TABLE IF NOT EXISTS species
+                        (id TEXT,
+                        type TEXT,
+                        is_counts INTEGER,
+                        is_equips INTEGER,
+                        cost INTEGER,
+                        durability INTEGER,
+                        slots_count INTEGER,
+                        health INTEGER,
+                        damage INTEGER,
+                        defence INTEGER)""")
+        self.execute("""CREATE TABLE IF NOT EXISTS locations
+                        (id TEXT,
+                        mobs BLOB,
+                        paths BLOB)""")
+        self.execute("""CREATE TABLE IF NOT EXISTS shop
+                        (id TEXT,
+                        item_id TEXT,
+                        item_count INTEGER,
+                        price_id TEXT,
+                        price_count INTEGER)""")
+        self.execute("""CREATE TABLE IF NOT EXISTS trade
+                        (id TEXT,
+                        owner_id TEXT,
+                        item_id TEXT,
+                        price_id TEXT)""")

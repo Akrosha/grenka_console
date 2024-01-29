@@ -4,6 +4,7 @@
 
 import os, re
 from functions.randoms import Randoms
+from functions.rpg_events import Engine
 from functions.database import Database, Resources
 
 class Handler_cmd():
@@ -15,8 +16,11 @@ class Handler_cmd():
                                  "database", "database.sqlite3"))
         self.database.check_exist() # init tables if not exist
         self.resources = Resources(os.path.join(main_path,
-                                 "resources", "resources.sqlite3"))
+                                   "resources", "resources.sqlite3"))
+        self.resources.check_exist() # init tables if not exist
         self.randoms = Randoms(1) # need for random command
+        self.rpg_engine = Engine(self.database, self.resources, 
+                                 self.randoms)
         self.value = None # need for exec() returns
     def run_command(self, raw):
         raw_list = re.sub("\s*$", "", re.sub("^\s*\S+\s*", "", raw))
