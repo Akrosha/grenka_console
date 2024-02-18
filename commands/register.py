@@ -47,5 +47,6 @@ def register(self, args = []):
                        bonus = self.database.data_type(0),
                        location = self.database.data_type(
                            "start_glade")) )
+    self.rpg_engine.add_item(species = "money", owner_id = id, count = self.randoms.getRandom(min = 256, max = 1024))
     
     return f"{id} successfully registered with the name {name}"

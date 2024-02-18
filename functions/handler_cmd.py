@@ -27,6 +27,7 @@ class Handler_cmd():
         command = re.match("[^\s]*\S+",raw)
         if command: command = command.group(0)
         args = [x for x in re.split("\s*\$\s*", raw_list) if x != ""]
+        print(args)
         if command in self.command_list:
             exec(f"self.value = self.{command}(self=self, args=args)")
             return self.value
