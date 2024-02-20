@@ -4,18 +4,44 @@
 
 import json
 import sqlite3
+from typing import Optional, Any, Union
 
 class SQLite3Tool():
+    """base for database and resources
+       
+       parameters
+       ----------
+       file_path : str
+           path of database file
+       
+       attributes
+       ----------
+       file_path : str
+           path of database file
+       connect : sqlite3.connect
+       cursor : sqlite3.connect.cursor"""
     def __init__(self, file_path):
         self.file_path = file_path
         self.connect = sqlite3.connect(self.file_path)
         self.cursor = self.connect.cursor()
-    def reload(self):
+    def reload(self) -> NoReturn:
+        """reload connect to database file"""
         self.connect.commit()
         self.connect.close()
         self.connect = sqlite3.connect(self.file_path)
         self.cursor = self.connect.cursor()
-    def data_type(self, data):
+    def data_type(self, data: Any) ->:
+        """format data for execute query
+           
+           parameters
+           ----------
+           data : Any
+               data to format for execute query
+           
+           returns
+           -------
+           return : Any
+               formatted data for execute query"""
         if isinstance(data, bool):
             return f"{int(data)}"
         elif isinstance(data, (int, float)):
@@ -24,7 +50,7 @@ class SQLite3Tool():
             return f"'{data}'"
         elif isinstance(data, (dict, list)):
             return f"{json.dumps(data)}"
-    def execute(self, query, fetchall = False):
+    def execute(self, query, fetchall : bool = False):
         try:
             if fetchall:
                 result = self.cursor.execute(query).fetchall()
@@ -44,7 +70,8 @@ class Database(SQLite3Tool):
                         experience INTEGER,
                         health INTEGER,
                         bonus INTEGER,
-                        location TEXT)""")
+                        location TEXT,
+                        in_fight INTEGER)""")
         self.execute("""CREATE TABLE IF NOT EXISTS inventory
                         (item_id TEXT,
                         species TEXT,

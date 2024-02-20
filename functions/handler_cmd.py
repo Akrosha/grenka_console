@@ -8,7 +8,32 @@ from functions.rpg_events import Engine
 from functions.database import Database, Resources
 
 class Handler_cmd():
-    def __init__(self, main_path):
+    """handle commands - add and run
+       
+       parameters
+       ----------
+       main_path : str
+           path to main.py file
+       
+       attributes
+       ----------
+       id : str
+           id of player that send a message
+       main_path : str
+           path to main.py file
+       command_list : List
+           list with command names
+       database : functions.database.Database
+            functions.database.Database
+       resources : functions.database.Resources
+            functions.database.Resources
+       randoms : functions.randoms.Randoms
+            functions.randoms.Randoms
+       rps_engine : functions.rpg_events.Engine
+            functions.rpg_events.Engine
+       value : Any
+           need for exec() returns in self.run_command()"""
+    def __init__(self, main_path: str):
         self.id = input("insert id: ")
         self.main_path = main_path
         self.command_list = []

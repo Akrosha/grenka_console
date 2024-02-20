@@ -5,7 +5,14 @@
 import os
 import requests
 
-def version_check(main_path):
+def version_check(main_path: str) -> NoReturn:
+    """check current version and github,
+       print if new version available
+       
+       parameters
+       ----------
+       main_path : str
+           path to main.py file"""
     test_path = os.path.join(main_path, "version")
     with open(test_path, "r") as file:
         version = int(file.read())
