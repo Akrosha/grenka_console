@@ -1,3 +1,7 @@
+# test command
+#
+# rpg_engine.add_item("bread", id, 1)
+
 from time import time
 
 def bread(self, args = []):

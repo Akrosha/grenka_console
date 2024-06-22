@@ -1,3 +1,12 @@
+# if (bonusFROMplayers - time()) < 0
+#   rpg_engine.add_item("money", id, random(256, 1024))
+#   bonusFROMplayers = time() + 86400
+#   return "text"
+# else
+#   return "text"
+
+
+
 from time import time
 
 def bonus(self, args = []):

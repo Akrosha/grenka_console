@@ -3,6 +3,7 @@
 ########################################################################
 
 import os
+from typing import NoReturn
 
 def validator(main_path: str) -> NoReturn:
     """validate for existing important files (else close program)

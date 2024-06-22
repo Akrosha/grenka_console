@@ -1,1 +1,2 @@
-add trade command; add some __doc__s
+- fix some bugs that stops program on running
+- add some comments in command files

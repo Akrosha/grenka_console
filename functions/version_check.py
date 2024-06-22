@@ -4,6 +4,7 @@
 
 import os
 import requests
+from typing import NoReturn
 
 def version_check(main_path: str) -> NoReturn:
     """check current version and github,

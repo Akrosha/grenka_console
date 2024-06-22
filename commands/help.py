@@ -1,3 +1,8 @@
+# if len(args) > 0
+#   return "command info"
+# else
+#   return "command list"
+
 def help(self, args = []):
     """help for commands\n\thelp <str:command>"""
     if len(args) > 0:

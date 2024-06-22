@@ -1,3 +1,8 @@
+# if len(args) > 0
+#   return "args_id info"
+# else
+#   return "sender_id info"
+
 from functions.levels import get_level, get_experience, get_max_health
 
 def profile(self, args = []):
@@ -27,6 +32,6 @@ def profile(self, args = []):
         level = level + 1
         minXP = XP - dexperience[0]
         maxXP = dexperience[1] - dexperience[0]
-        return f"Statistics\n\nName:\n{name}\nID:\n{id}\nLocation:\n{location}\n\nHP:\n{minHP}/{maxHP}:heart:\nLevel:\n{level}:arrow_up:\nExp:\n{minXP}/{maxXP} ({XP}):sparkles:\nMushrooms:\n{money}:mushroom:"
+        return f"Statistics\n\nName:\n\t{name}\nID:\n\t{id}\nLocation:\n\t{location}\n\nHP:\n\t{minHP}/{maxHP}:heart:\nLevel:\n\t{level}:arrow_up:\nExp:\n\t{minXP}/{maxXP} ({XP}):sparkles:\nMushrooms:\n\t{money}:mushroom:"
     else:
         return f"{id} are not registered\n\ttype register <str:name>"

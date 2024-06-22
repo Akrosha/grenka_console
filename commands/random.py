@@ -1,3 +1,10 @@
+# if len(args) == 0
+#   random(0, 1)
+# if len(args) == 1
+#   random(0, args)
+# if len(args) > 1
+#   random(args, args)
+
 def random(self, args = []):
     """get a random number\n\trandom\n\trandom <int:max>\n\trandom <int:min> $ <int:max>"""
     if len(args) == 0:

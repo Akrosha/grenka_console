@@ -4,7 +4,7 @@
 
 import json
 import sqlite3
-from typing import Optional, Any, Union
+from typing import Optional, Any, Union, NoReturn
 
 class SQLite3Tool():
     """base for database and resources
@@ -20,7 +20,7 @@ class SQLite3Tool():
            path of database file
        connect : sqlite3.connect
        cursor : sqlite3.connect.cursor"""
-    def __init__(self, file_path):
+    def __init__(self, file_path: str):
         self.file_path = file_path
         self.connect = sqlite3.connect(self.file_path)
         self.cursor = self.connect.cursor()
@@ -30,7 +30,7 @@ class SQLite3Tool():
         self.connect.close()
         self.connect = sqlite3.connect(self.file_path)
         self.cursor = self.connect.cursor()
-    def data_type(self, data: Any) ->:
+    def data_type(self, data: Any) -> Any:
         """format data for execute query
            
            parameters
@@ -50,7 +50,20 @@ class SQLite3Tool():
             return f"'{data}'"
         elif isinstance(data, (dict, list)):
             return f"{json.dumps(data)}"
-    def execute(self, query, fetchall : bool = False):
+    def execute(self, query: str, fetchall: bool = False) -> Any:
+        """execute sql query
+           
+           parameters
+           ----------
+           query : str
+               data to format for execute query
+           fetchall : bool
+               sets fetch setting
+           
+           returns
+           -------
+           return : Any
+               result of execute"""
         try:
             if fetchall:
                 result = self.cursor.execute(query).fetchall()

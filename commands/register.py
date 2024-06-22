@@ -1,3 +1,5 @@
+#
+
 def register(self, args = []):
     """register in the rpg system\n\tregister <str:name>"""
     id = self.id
