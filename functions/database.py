@@ -50,6 +50,77 @@ class SQLite3Tool():
             return f"'{data}'"
         elif isinstance(data, (dict, list)):
             return f"{json.dumps(data)}"
+    def add_column(table: str, name: str, type: str):
+        """add column in the table
+           
+           parameters
+           ----------
+           table : str
+               name of table that add column
+           name : str
+               name of column
+           type : str
+               type of data in this column"""
+        if "str" == type:
+            type = "TEXT"
+        elif "int" == type:
+            type = "INTEGER"
+        else:
+            type = "TEXT"
+        name = name.lower()
+        self.execute(f"ALTER TABLE {table} ADD COLUMN {name} {type}")
+    def rename_column(table: str, name: str, new_name: str):
+        """rename column in the table
+           
+           parameters
+           ----------
+           table : str
+               name of table that rename column
+           name : str
+               name of column
+           new_name : str
+               new name of column"""
+        name = name.lower()
+        new_name = new_name.lower()
+        self.execute(f"ALTER TABLE {table} RENAME COLUMN {name} TO {new_name}")
+    def delete_column(table: str, name: str):
+        """delete column in the table
+           
+           parameters
+           ----------
+           table : str
+               name of table that delete column
+           name : str
+               name of column"""
+        name = name.lower()
+        self.execute(f"ALTER TABLE {table} DROP COLUMN {name}")
+    def insert_data(table: str, keys: list, values: list):
+        """insert data in the table
+           
+           parameters
+           ----------
+           table : str
+               name of table that insert data
+           keys : list
+               list of keys
+           values : list
+               list of values"""
+        keys = f"({', '.join(keys)})"
+        values = f"({', '.join(values)})"
+        self.execute(f"INSERT INTO {table} {keys} VALUES {values}")
+    # TODO: FINISH THIS
+    def update_data(table: str):
+        """update data in the table
+        """
+        self.execute(f"UPDATE {table} SET {data} WHERE {condition}")
+    def delete_data():
+        """delete data in the table
+        """
+        self.execute(f"")
+    def get_data():
+        """get data from the table
+        """
+        self.execute(f"")
     def execute(self, query: str, fetchall: bool = False) -> Any:
         """execute sql query
            
