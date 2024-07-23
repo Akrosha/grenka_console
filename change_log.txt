@@ -1,3 +1,1 @@
-~ add methotds for columns (add, rename, delete) in functions.database;
-~ add methods for data (insert, update, delete, get) in functions.database;
-~ add debug commands addc, renc, delc;
+~ finish? methods for data (insert, update, delete, get) in functions.database;

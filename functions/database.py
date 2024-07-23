@@ -109,18 +109,46 @@ class SQLite3Tool():
         values = f"({', '.join(values)})"
         self.execute(f"INSERT INTO {table} {keys} VALUES {values}")
     # TODO: FINISH THIS
-    def update_data(table: str):
+    def update_data(table: str, data: str, condition: str):
         """update data in the table
-        """
+           
+           parameters
+           ----------
+           table : str
+               name of table that update data
+           data : str
+               data that update
+           condition : str
+               the condition of data update"""
         self.execute(f"UPDATE {table} SET {data} WHERE {condition}")
-    def delete_data():
+    def delete_data(table: str, condition: str):
         """delete data in the table
-        """
-        self.execute(f"")
-    def get_data():
+        
+        parameters
+           ----------
+           table : str
+               name of table that delete data
+           condition : str
+               the condition of data delete"""
+        self.execute(f"DELETE FROM {table} WHERE {condition}")
+    def get_data(table: str, query: str, condition: str):
         """get data from the table
-        """
-        self.execute(f"")
+           
+           parameters
+           ----------
+           table : str
+               name of table that get data
+           query : str
+               what data need to get
+           condition : str
+               the condition of data get
+           
+           returns
+           -------
+           data : Any
+               getting data"""
+        data = self.execute(f"SELECT {query} FROM {table} WHERE {condition}")
+        return data
     def execute(self, query: str, fetchall: bool = False) -> Any:
         """execute sql query
            
