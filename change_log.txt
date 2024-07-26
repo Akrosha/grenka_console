@@ -1,1 +1,1 @@
-~ finish? methods for data (insert, update, delete, get) in functions.database;
+~ fix self argument in methods for data (insert, update, delete, get) in functions.database;

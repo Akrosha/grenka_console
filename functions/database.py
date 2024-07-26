@@ -50,7 +50,7 @@ class SQLite3Tool():
             return f"'{data}'"
         elif isinstance(data, (dict, list)):
             return f"{json.dumps(data)}"
-    def add_column(table: str, name: str, type: str):
+    def add_column(self, table: str, name: str, type: str):
         """add column in the table
            
            parameters
@@ -69,7 +69,7 @@ class SQLite3Tool():
             type = "TEXT"
         name = name.lower()
         self.execute(f"ALTER TABLE {table} ADD COLUMN {name} {type}")
-    def rename_column(table: str, name: str, new_name: str):
+    def rename_column(self, table: str, name: str, new_name: str):
         """rename column in the table
            
            parameters
@@ -83,7 +83,7 @@ class SQLite3Tool():
         name = name.lower()
         new_name = new_name.lower()
         self.execute(f"ALTER TABLE {table} RENAME COLUMN {name} TO {new_name}")
-    def delete_column(table: str, name: str):
+    def delete_column(self, table: str, name: str):
         """delete column in the table
            
            parameters
@@ -94,7 +94,7 @@ class SQLite3Tool():
                name of column"""
         name = name.lower()
         self.execute(f"ALTER TABLE {table} DROP COLUMN {name}")
-    def insert_data(table: str, keys: list, values: list):
+    def insert_data(self, table: str, keys: list, values: list):
         """insert data in the table
            
            parameters
@@ -109,7 +109,7 @@ class SQLite3Tool():
         values = f"({', '.join(values)})"
         self.execute(f"INSERT INTO {table} {keys} VALUES {values}")
     # TODO: FINISH THIS
-    def update_data(table: str, data: str, condition: str):
+    def update_data(self, table: str, data: str, condition: str):
         """update data in the table
            
            parameters
@@ -121,7 +121,7 @@ class SQLite3Tool():
            condition : str
                the condition of data update"""
         self.execute(f"UPDATE {table} SET {data} WHERE {condition}")
-    def delete_data(table: str, condition: str):
+    def delete_data(self, table: str, condition: str):
         """delete data in the table
         
         parameters
@@ -131,7 +131,7 @@ class SQLite3Tool():
            condition : str
                the condition of data delete"""
         self.execute(f"DELETE FROM {table} WHERE {condition}")
-    def get_data(table: str, query: str, condition: str):
+    def get_data(self, table: str, query: str, condition: str):
         """get data from the table
            
            parameters
