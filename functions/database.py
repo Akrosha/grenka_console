@@ -108,7 +108,6 @@ class SQLite3Tool():
         keys = f"({', '.join(keys)})"
         values = f"({', '.join(values)})"
         self.execute(f"INSERT INTO {table} {keys} VALUES {values}")
-    # TODO: FINISH THIS
     def update_data(self, table: str, data: str, condition: str):
         """update data in the table
            
