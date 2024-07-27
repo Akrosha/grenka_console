@@ -6,7 +6,7 @@
 from functions.levels import get_level, get_experience, get_max_health
 
 def profile(self, args = []):
-    """show user profile\n\tprofile <str:id>"""
+    """show user profile\n\tprofile\n\tprofile <str:id>"""
     if len(args) > 0:
         id = args[0]
     else:

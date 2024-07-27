@@ -1,1 +1,4 @@
-~ remove sus files;
+~ add command location;
+~ edit commands info;
+~ edit command help;
+~ add some debug;

@@ -3,12 +3,16 @@
 # else
 #   return "command list"
 
+from functions.list_like import list_like
+
 def help(self, args = []):
-    """help for commands\n\thelp <str:command>"""
+    """help for commands\n\thelp\n\thelp <int:page>\n\thelp <str:command>"""
     if len(args) > 0:
         command = args[0]
+        if command.isdigit():
+            return list_like(self.command_list, "command list", int(command))
     else:
-        return "\n".join(self.command_list)
+        return list_like(self.command_list, "command list")
     
     if command in self.command_list:
         exec(f"self.value = self.{command}.__doc__")
