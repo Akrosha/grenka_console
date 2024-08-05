@@ -11,19 +11,20 @@ def profile(self, args = []):
         id = args[0]
     else:
         id = self.id
-    player = self.database.execute(
-        """SELECT name, location, health, experience FROM players
-        WHERE id = {id}""".format(id = self.database.data_type(id)) )
+    player = self.database.get_data(
+        "players",
+        "name, location, health, experience",
+        f"id = {self.database.data_type(id)}"
+        )
     if player:
-        # [0] is important because execute returns ('name', 'location', money, health, experience)
+        # [0] is important because execute returns ('name', 'location', health, experience)
         name = player[0]
         location = player[1]
-        money = self.database.execute("""SELECT COALESCE(SUM(count), 0)
-                                         AS count FROM inventory
-                                         WHERE species = {species}
-                                         AND owner_id = {owner_id}""".format(
-                                         species = self.database.data_type("money"),
-                                         owner_id = self.database.data_type(id)) )[0]
+        money = self.database.get_data(
+            "inventory",
+            "COALESCE(SUM(count), 0) AS count",
+            f"species = {self.database.data_type('money')} AND owner_id = {self.database.data_type(id)}"
+            )[0]
         minHP = player[2]
         XP = player[3]
         level = get_level(XP)

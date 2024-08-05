@@ -131,7 +131,7 @@ class Engine():
         count = self.database.data_type(count)
         equipped = self.database.data_type(False)
         durability = self.database.data_type(durability)
-        # if item can counts 8d1580b8-c1d1-4dfe-baa6-d7dff1223995
+        # if item can counts
         if bool(species_data[2]):
             self.database.execute("""UPDATE inventory
                  SET count = count + {count}

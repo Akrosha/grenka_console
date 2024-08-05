@@ -130,7 +130,7 @@ class SQLite3Tool():
            condition : str
                the condition of data delete"""
         self.execute(f"DELETE FROM {table} WHERE {condition}")
-    def get_data(self, table: str, query: str, condition: str):
+    def get_data(self, table: str, query: str, condition: str, fetchall: bool = False):
         """get data from the table
            
            parameters
@@ -141,12 +141,14 @@ class SQLite3Tool():
                what data need to get
            condition : str
                the condition of data get
+           fetchall : bool
+               sets fetch setting
            
            returns
            -------
            data : Any
                getting data"""
-        data = self.execute(f"SELECT {query} FROM {table} WHERE {condition}")
+        data = self.execute(f"SELECT {query} FROM {table} WHERE {condition}", fetchall)
         return data
     def execute(self, query: str, fetchall: bool = False) -> Any:
         """execute sql query

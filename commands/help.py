@@ -1,7 +1,10 @@
 # if len(args) > 0
-#   return "command info"
+#   if args[0].isDigit
+#      return "command list (page args[0])"
+#   else
+#      return "command info"
 # else
-#   return "command list"
+#   return "command list (page 1)"
 
 from functions.list_like import list_like
 

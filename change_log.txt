@@ -1,4 +1,3 @@
-~ add command location;
-~ edit commands info;
-~ edit command help;
-~ add some debug;
+~ edit database execution methods in commands;
+~ add some comment for debug commands;
+~ remove sus text in rpg_events;
