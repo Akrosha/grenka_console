@@ -12,12 +12,12 @@ from time import time
 def bonus(self, args = []):
     """get a daily bonus\n\tbonus"""
     id = self.id
-    bonus = self.database.get_data(
-        "players",
-        "bonus",
-        f"id = {self.database.data_type(id)}"
-        )
-    if bonus:
+    if self.rpg_engine.exist_player(id):
+        bonus = self.database.get_data(
+            "players",
+            "bonus",
+            f"id = {self.database.data_type(id)}"
+            )
         # [0] is important because execute returns ('bonus', )
         test_bonus = bonus[0] - int(time())
         if test_bonus < 0:

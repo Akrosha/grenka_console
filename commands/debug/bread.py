@@ -7,12 +7,7 @@ from time import time
 def bread(self, args = []):
     """test get a bread\n\tbread"""
     id = self.id
-    bonus = self.database.get_data(
-        "players"
-        "bonus",
-        f"id = {self.database.data_type(id)}"
-        )
-    if bonus:
+    if self.rpg_engine.exist_player(id):
         self.rpg_engine.add_item(species = "bread", owner_id = id, count = 1)
         return f"{id} get bread"
     else:

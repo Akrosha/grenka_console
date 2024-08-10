@@ -5,14 +5,13 @@ from functions.list_like import list_like
 def location(self, args = []):
     """move to other location\n\tlocation\n\tlocation <int:location>"""
     id = self.id
-    player = self.database.get_data(
-        "players",
-        "location",
-        f"id = {self.database.data_type(id)}"
-        )
-    if player:
-        # [0] is important because execute returns ('location')
-        location = player[0]
+    if self.rpg_engine.exist_player(id):
+        # [0] is important because execute returns ('location', )
+        location = self.database.get_data(
+            "players",
+            "location",
+            f"id = {self.database.data_type(id)}"
+            )[0]
         locations = eval(self.resources.get_data(
             "locations",
             "paths",

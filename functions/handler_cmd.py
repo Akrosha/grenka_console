@@ -37,6 +37,7 @@ class Handler_cmd():
         self.id = input("insert id: ")
         self.main_path = main_path
         self.command_list = []
+        self.debug_list = []
         self.database = Database(os.path.join(main_path,
                                  "database", "database.sqlite3"))
         self.database.check_exist() # init tables if not exist
@@ -53,12 +54,16 @@ class Handler_cmd():
         if command: command = command.group(0)
         args = [x for x in re.split("\s*\$\s*", raw_list) if x != ""]
         # print(args)
-        if command in self.command_list:
+        if command in self.command_list + self.debug_list:
             exec(f"self.value = self.{command}(self=self, args=args)")
             return self.value
         else:
             return f"{command}: command is not exist"
-    def add_command(self, command):
-        exec(f"from commands.{command} import {command}")
+    def add_command(self, command, path):
+        exec(f"from {'.'.join(path)}.{command} import {command}")
         exec(f"self.{command} = {command}")
         self.command_list.append(command)
+    def add_debug(self, command, path):
+        exec(f"from {'.'.join(path)}.{command} import {command}")
+        exec(f"self.{command} = {command}")
+        self.debug_list.append(command)

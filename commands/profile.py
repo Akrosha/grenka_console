@@ -11,12 +11,12 @@ def profile(self, args = []):
         id = args[0]
     else:
         id = self.id
-    player = self.database.get_data(
-        "players",
-        "name, location, health, experience",
-        f"id = {self.database.data_type(id)}"
-        )
-    if player:
+    if self.rpg_engine.exist_player(id):
+        player = self.database.get_data(
+            "players",
+            "name, location, health, experience",
+            f"id = {self.database.data_type(id)}"
+            )
         # [0] is important because execute returns ('name', 'location', health, experience)
         name = player[0]
         location = player[1]

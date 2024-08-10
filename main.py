@@ -30,10 +30,15 @@ handler_cmd = Handler_cmd(main_path)
 
 # init all commands in handler that will find in main_path/commands/
 test_path = os.path.join(main_path, "commands")
-command_files = os.listdir(test_path)
-for file in command_files:
-    if ".py" in file:
-        handler_cmd.add_command(file[:-3])
+
+for root, dirs, files in os.walk(test_path):
+    for file in files:
+        if file.endswith(".py"):
+            path = os.path.relpath(root, os.path.basename(main_path)).split("/")[1:]
+            if "debug" in path:
+                handler_cmd.add_debug(file[:-3], path)
+            else:
+                handler_cmd.add_command(file[:-3], path)
 
 # run
 enter = ""

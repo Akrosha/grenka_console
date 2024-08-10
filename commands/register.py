@@ -3,12 +3,12 @@
 def register(self, args = []):
     """register in the rpg system\n\tregister <str:name>"""
     id = self.id
-    name = self.database.get_data(
-        "players",
-        "name",
-        f"id = {self.database.data_type(id)}"
-        )
-    if name:
+    if self.rpg_engine.exist_player(id):
+        name = self.database.get_data(
+            "players",
+            "name",
+            f"id = {self.database.data_type(id)}"
+            )
         # [0] is important because execute returns ('name', )
         return f"{id} is already registered with the name {name[0]}"
     
