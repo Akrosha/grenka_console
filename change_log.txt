@@ -1,3 +1,1 @@
-~ finish command inventory;
-~ some sorting in commands.debug;
-~ add info in commands list in help/debug;
+~ i forgot that folders with the name "database" is located in ".gitignore";
