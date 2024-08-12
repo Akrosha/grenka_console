@@ -10,12 +10,22 @@ from functions.list_like import list_like
 
 def help(self, args = []):
     """help for commands\n\thelp\n\thelp <int:page>\n\thelp <str:command>"""
+    command_list = []
+    for command in self.command_list:
+        exec(f"self.value = self.{command}.__doc__")
+        if self.value:
+            self.value = self.value.split("\n")[0]
+        else:
+            self.value = "None"
+        command_list.append(f"{command} - {self.value}")
+    command_list.sort()
+    
     if len(args) > 0:
         command = args[0]
         if command.isdigit():
-            return list_like(self.command_list, "command list", int(command))
+            return list_like(command_list, "command list", int(command), 7)
     else:
-        return list_like(self.command_list, "command list")
+        return list_like(command_list, "command list", 1, 7)
     
     if command in self.command_list + self.debug_list:
         exec(f"self.value = self.{command}.__doc__")

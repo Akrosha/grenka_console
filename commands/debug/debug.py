@@ -12,12 +12,22 @@ from functions.list_like import list_like
 
 def debug(self, args = []):
     """help for debugs\n\tdebug\n\tdebug <int:page>\n\tdebug <str:command>"""
+    debug_list = []
+    for command in self.debug_list:
+        exec(f"self.value = self.{command}.__doc__")
+        if self.value:
+            self.value = self.value.split("\n")[0]
+        else:
+            self.value = "None"
+        debug_list.append(f"{command} - {self.value}")
+    debug_list.sort()
+    
     if len(args) > 0:
         command = args[0]
         if command.isdigit():
-            return list_like(self.debug_list, "debug list", int(command))
+            return list_like(debug_list, "debug list", int(command), 7)
     else:
-        return list_like(self.debug_list, "debug list")
+        return list_like(debug_list, "debug list", 1, 7)
     
     if command in self.command_list + self.debug_list:
         exec(f"self.value = self.{command}.__doc__")
