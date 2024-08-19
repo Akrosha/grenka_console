@@ -1,7 +1,7 @@
 # test command
 
 def execres(self, args = []):
-    """debug execres\n\execres <str:query> $ <bool:fetchall>"""
+    """debug execres\n\t{name} <str:query> $ <bool:fetchall>"""
     b = "NONE"
     if len(args) == 1:
         b = self.resources.execute(args[0])

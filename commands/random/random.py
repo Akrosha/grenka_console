@@ -6,7 +6,7 @@
 #   random(args, args)
 
 def random(self, args = []):
-    """get a random number\n\trandom\n\trandom <int:max>\n\trandom <int:min> $ <int:max>"""
+    """get a random number\n\t{name}\n\t{name} <int:max>\n\t{name} <int:min> $ <int:max>"""
     if len(args) == 0:
         return self.randoms.getRandom()
     if (len(args) == 1) and (args[0].isdigit()):

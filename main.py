@@ -40,12 +40,17 @@ for root, dirs, files in os.walk(test_path):
             else:
                 handler_cmd.add_command(file[:-3], path)
 
-# run
-enter = ""
-while True:
-    enter = input("> ")
-    if enter == "exit":
-        break
-    print(handler_cmd.run_command(enter))
-
-print("bye bye")
+if __name__ == "__main__":
+    # run
+    enter = ""
+    while True:
+        enter = input("> ")
+        if enter == "exit":
+            break
+        print(handler_cmd.run_command(enter))
+    
+    print("bye bye")
+else:
+    print("loaded from debug")
+    def run(enter = ""):
+        print(handler_cmd.run_command(str(enter)))

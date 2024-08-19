@@ -1,7 +1,7 @@
 #
 
 def register(self, args = []):
-    """register in the rpg system\n\tregister <str:name>"""
+    """register in the rpg system\n\t{name} <str:name>"""
     id = self.id
     if self.rpg_engine.exist_player(id):
         name = self.database.get_data(

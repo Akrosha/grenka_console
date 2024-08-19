@@ -3,5 +3,5 @@
 # return "text"
 
 def test(self, args = []):
-    """debug"""
+    """debug\n\t{name}"""
     return "hello world"

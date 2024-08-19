@@ -5,11 +5,17 @@ import uuid
 
 class Engine():
     """there is methods for rpg, like item_add, exist_player and etc"""
-    def __init__(self, database, resources, randoms):
+    def __init__(self,
+                 database,
+                 resources,
+                 randoms
+                 ):
         self.database = database
         self.resources = resources
         self.randoms = randoms
-    def exist_player(self, id: str) -> bool:
+    def exist_player(self,
+                     id: str
+                     ) -> bool:
         """check for exist player in database.players
            
            parameters
@@ -22,11 +28,15 @@ class Engine():
            result : bool
                result of user's check for exist in database.players"""
         id = self.database.data_type(id)
-        result = self.database.execute("""SELECT id FROM players
-                                   WHERE id = {id}""".format(
-                                       id = id))
+        result = self.database.get_data(
+            "players",
+            "id",
+            f"id = {id}"
+            )
         return bool(result)
-    def exist_species(self, id: str) -> bool:
+    def exist_species(self,
+                      id: str
+                      ) -> bool:
         """check for exist species in resources.species
            
            parameters
@@ -39,16 +49,22 @@ class Engine():
            result : bool
                result of species's check for exist in resources.species"""
         id = self.database.data_type(id)
-        result = self.resources.execute("""SELECT id FROM species
-                                   WHERE id = {id}""".format(
-                                       id = id))
+        result = self.resources.get_data(
+            "species",
+            "id",
+            f"id = {id}"
+            )
         return bool(result)
-    def exist_item(self, item_id = None, species = None, owner_id = None) -> bool:
+    def exist_item(self,
+                   id = None,
+                   species = None,
+                   owner_id = None
+                   ) -> bool:
         """check for exist item in database.inventory
            
            parameters
            ----------
-           item_id : str, optional
+           id : str, optional
                item's id that need to check
            species : str, optional
                item's species that need to check
@@ -59,24 +75,30 @@ class Engine():
            -------
            result : bool
                result of item's check for exist in database.inventory"""
+        # note at 16.08.24:
+        # wtf is this sus shit
         result = 1-1
         # check item by species and owner_id
         if species and owner_id:
             species = self.database.data_type(species)
             owner_id = self.database.data_type(owner_id)
-            result = self.database.execute("""SELECT species FROM inventory
-                                   WHERE species = {species}
-                                   AND owner_id = {owner_id}""".format(
-                                       species = species,
-                                       owner_id = owner_id))
+            result = self.database.get_data(
+                "inventory",
+                "species",
+                f"species = {species} AND owner_id = {owner_id}"
+                )
         # check item by item_id
-        if item_id:
-            item_id = self.database.data_type(item_id)
-            result = self.database.execute("""SELECT item_id FROM inventory
-                                   WHERE item_id = {item_id}""".format(
-                                       item_id = item_id))
+        if id:
+            id = self.database.data_type(id)
+            result = self.database.get_data(
+                "inventory",
+                "id",
+                f"id = {id}"
+                )
         return bool(result)
-    def get_species_data(self, id: str) -> tuple:
+    def get_species_data(self,
+                         id: str
+                         ) -> tuple:
         """get species data from resources.species
            
            parameters
@@ -92,17 +114,45 @@ class Engine():
                 slots_count, health, damage, defence)"""
         if not self.exist_species(id):
             print("no species")
-            return "no species"
+            return ()
         id = self.database.data_type(id)
-        result = self.resources.execute("""SELECT * FROM species
-                                   WHERE id = {id}""".format(
-                                       id = id))
+        result = self.resources.get_data(
+            "species",
+            "*",
+            f"id = {id}"
+            )
+        return result
+    def get_item_data(self,
+                      id = None,
+                      species = None,
+                      owner_id = None
+                      ) -> tuple:
+        # check for item exist
+        if not self.exist_item(id, species, owner_id):
+            print("no item")
+            return ()
+        id = self.database.data_type(id)
+        species = self.database.data_type(species)
+        owner_id = self.database.data_type(owner_id)
+        if species and owner_id:
+            result = self.database.get_data(
+                "inventory",
+                "*",
+                f"species = {species} AND owner_id = {owner_id}"
+                )
+        if id:
+            result = self.database.get_data(
+                "inventory",
+                "*",
+                f"id = {id}"
+                )
         return result
     def add_item(self,
                  species: str = "bread",
                  owner_id: str = "0",
                  count: int = 1,
-                 durability: int = 0) -> bool:
+                 durability: int = 0
+                 ) -> bool:
         """add item in player inventory
            
            parameters
@@ -121,11 +171,11 @@ class Engine():
            return : bool
                False if species not exist else True"""
         # check for species exist
-        if not self.exist_species(species):
+        if species and not self.exist_species(species):
             print("no species")
             return False
         species_data = self.get_species_data(species)
-        item_id = self.database.data_type(str(uuid.uuid4()))
+        id = self.database.data_type(str(uuid.uuid4()))
         species = self.database.data_type(species)
         owner_id = self.database.data_type(owner_id)
         count = self.database.data_type(count)
@@ -133,25 +183,21 @@ class Engine():
         durability = self.database.data_type(durability)
         # if item can counts
         if bool(species_data[2]):
-            self.database.execute("""UPDATE inventory
-                 SET count = count + {count}
-                             WHERE species = {species}
-                             AND owner_id = {owner_id}""".format(
-                 item_id = item_id,
-                 species = species,
-                 owner_id = owner_id,
-                 count = count,
-                 equipped = equipped,
-                 durability = durability))
-            
+            self.database.update_data(
+                "inventory",
+                f"count = count + {count}",
+                f"species = {species} AND owner_id = {owner_id}"
+                )
+            # note at 16.08.24:
+            # i dont remember how this works 
             self.database.execute("""INSERT INTO inventory
-                (item_id,
+                (id,
                  species,
                  owner_id,
                  count,
                  equipped,
                  durability) SELECT
-                             {item_id},
+                             {id},
                              {species},
                              {owner_id},
                              {count},
@@ -161,30 +207,79 @@ class Engine():
                              SELECT 1 FROM inventory
                              WHERE species = {species}
                              AND owner_id = {owner_id})""".format(
-                 item_id = item_id,
+                 id = id,
                  species = species,
                  owner_id = owner_id,
                  count = count,
                  equipped = equipped,
                  durability = durability))
         else:
-            self.database.execute("""INSERT INTO inventory
-                (item_id,
-                 species,
-                 owner_id,
-                 count,
-                 equipped,
-                 durability) VALUES
-                            ({item_id},
-                             {species},
-                             {owner_id},
-                             {count},
-                             {equipped},
-                             {durability})""".format(
-                 item_id = item_id,
-                 species = species,
-                 owner_id = owner_id,
-                 count = count,
-                 equipped = equipped,
-                 durability = durability))
+            self.database.insert_data(
+                "inventory",
+                "id species owner_id count equipped durability".split(),
+                [id, species, owner_id, count, equipped, durability]
+                )
         return True
+    def remove_item(self,
+                    id: str = None,
+                    species: str = None,
+                    owner_id: str = None,
+                    count: int = 0
+                    ) -> bool:
+        """remove item from player inventory
+           
+           parameters
+           ----------
+           id : str, optional
+                id of item that remove from inventory
+           species : str, optional
+               species of item that remove from inventory
+           owner_id : str, optional
+               owner_id of item that remove from inventory
+           count : int, optional
+               count of item that remove from inventory
+           
+           returns
+           -------
+           return : bool
+               True if removed else False"""
+        # check for species exist
+        if species and not self.exist_species(species):
+            print("no species")
+            return False
+        # check for item exist
+        if (id or (species and owner_id)) and not self.exist_item(id, species, owner_id):
+            print("no item")
+            return False
+        id = self.database.data_type(id)
+        species = self.database.data_type(species)
+        owner_id = self.database.data_type(owner_id)
+        count = self.database.data_type(count)
+        result = False
+        # remove item by species and owner_id
+        if species and owner_id:
+            id = self.database.get_data(
+                "inventory",
+                "id",
+                f"species = {species} AND owner_id = {owner_id}"
+                )
+            self.database.update_data(
+                "inventory",
+                f"count = count - {count}",
+                f"id = {id}"
+                )
+            result = True
+        # remove item by id:
+        if id:
+            self.database.update_data(
+                "inventory",
+                f"count = count - {count}",
+                f"id = {id}"
+                )
+            result = True
+        # delete items with count < 1
+        self.database.delete_data(
+            "inventory",
+            "count < 1"
+            )
+        return result
