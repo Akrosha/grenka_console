@@ -40,6 +40,22 @@ for root, dirs, files in os.walk(test_path):
             else:
                 handler_cmd.add_command(file[:-3], path)
 
+# load all mods that will find in main_path/modss/
+test_path = os.path.join(main_path, "mods")
+mods_count = 0
+
+for root, dirs, files in os.walk(test_path):
+    for file in files:
+        if file.endswith(".py"):
+            path = os.path.relpath(root, os.path.basename(main_path)).split("/")[1:]
+            try:
+                with open(os.path.join(root, file), "r") as code:
+                    exec(code.read())
+                mods_count += 1
+            except Exception as error:
+                print(f"error to load {os.path.join(root, file)}:\n{error}")
+print(f"loaded {mods_count} mods\n{'='*13}")
+
 if __name__ == "__main__":
     # run
     enter = ""

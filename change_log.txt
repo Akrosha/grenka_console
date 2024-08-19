@@ -1,9 +1,1 @@
-~ add more debug
-~ add commands drop, use;
-~ add remove_item, get_item_data in functions.rpg_events;
-~ add __name__ check in main.py;
-~ add commands info in command help/debug;
-~ edit command __doc__s;
-~ edit database methods in functions.rpg_events and commands;
-~ edit player checks in commands;
-~ remove mandatory internet connection;
+~ add mods??!?;
